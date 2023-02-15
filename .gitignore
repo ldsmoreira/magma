@@ -7,6 +7,12 @@
 *.o
 *.obj
 
+# Intermediate files
+*.s
+*.ii
+*.i
+*.bc
+
 # Precompiled Headers
 *.gch
 *.pch
