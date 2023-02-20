@@ -1,3 +1,9 @@
 #pragma once
-
-__declspec(dllexport) int test_vulkan();
+namespace MagmaLib
+{
+    class Debug
+    {
+    public:
+        static int print_vulkan_config();
+    };
+}

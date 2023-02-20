@@ -22,7 +22,7 @@
             },
             "windows": {
                 "type": "cppvsdbg",
-                "program": "${workspaceFolder}/bin/testbed.exe",
+                "program": "${workspaceFolder}/bin/dynamic/dynamic_bed.exe",
                 // cppvsdbg requires this instead of externalConsole
                 "console": "integratedTerminal",
             }

@@ -3,6 +3,6 @@
 
 int main() {
   std::cout << "Hello, world 3!" << std::endl;
-  test_vulkan();
+  MagmaLib::Debug::print_vulkan_config();
   return 0;
 }

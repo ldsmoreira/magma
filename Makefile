@@ -11,11 +11,11 @@ VULKAN_LINKING_FLAGS = -L$(VULKAN_SDK)/Lib -lvulkan-1
 
 # Define the name of the static library and the output directory
 LIB_STATIC = magma.lib
-LIBDIR_STATIC = ./bin/lib/static
+LIBDIR_STATIC = ./bin/static
 
 # Define the name of the dynamic library and the output directory
 LIB_DYNAMIC = magma.dll
-LIBDIR_DYNAMIC = ./bin/lib/dynamic
+LIBDIR_DYNAMIC = ./bin/dynamic
 
 # Testbed source files and object files
 TESTBEDSOURCES=$(wildcard testbed/src/*.cpp)
@@ -27,17 +27,18 @@ $(LIBDIR_STATIC)/$(LIB_STATIC): $(OBJ)
 
 # Define the build rule for the dynamic library
 $(LIBDIR_DYNAMIC)/$(LIB_DYNAMIC): $(OBJ)
-	$(CXX) -shared -luser32 $^ -o $@ $(VULKAN_LINKING_FLAGS)
+	$(CXX) -v -shared $^ -o $@ $(VULKAN_LINKING_FLAGS)
 
 # Define the build rule for the object files
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) $(VULKAN_INCLUDE) -c $< -o $@
 
+# DLL needs to be at the same directory as the executable or in the PATH
 dynamic_bed:
-	$(CXX) -o dynamic_bed.exe $(TESTBEDSOURCES) -I./engine/src -L./bin/lib/static -lmagma -L$(VULKAN_SDK)/Lib -lvulkan-1
+	$(CXX) -o ./bin/dynamic/dynamic_bed.exe $(TESTBEDSOURCES) -I./engine/src -L./bin/dynamic -lmagma -L$(VULKAN_SDK)/Lib -lvulkan-1
 
 static_bed:
-	$(CXX) -o static_bed.exe $(TESTBEDSOURCES) -I./engine/src -L./bin/lib/static -lmagma -L$(VULKAN_SDK)/Lib -lvulkan-1
+	$(CXX) -o static_bed.exe $(TESTBEDSOURCES) -I./engine/src -L./bin/static -lmagma -L$(VULKAN_SDK)/Lib -lvulkan-1
 
 # Define the clean rule
 clean:
