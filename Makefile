@@ -42,7 +42,7 @@ static_bed:
 
 # Define the clean rule
 clean:
-	del /Q $(subst /,\,$(OBJ) $(LIBDIR)\$(LIB) $(LIBDIR_DYNAMIC)\$(LIB_DYNAMIC) dynamic_bed.exe static_bed.exe)
+	del /Q $(subst /,\,$(OBJ) $(LIBDIR_STATIC)\$(LIB_STATIC) $(LIBDIR_DYNAMIC)\$(LIB_DYNAMIC) bin/dynamic/dynamic_bed.exe static_bed.exe)
 
 # Define the all rule
 all: $(LIBDIR_STATIC)/$(LIB_STATIC) $(LIBDIR_DYNAMIC)/$(LIB_DYNAMIC) static_bed dynamic_bed
