@@ -30,7 +30,9 @@
                 "${workspaceFolder}/engine/src/**",
                 "${workspaceFolder}/vulkan_renderer/src/**",
                 "${VULKAN_SDK}/include",
-                "C:/Program Files (x86)/Windows Kits/10/Include/**"
+                "C:/Program Files (x86)/Windows Kits/10/Include/**",
+                "external/**/include/**",
+                "${workspaceFolder}/external/spdlog/include"
             ],
             "windowsSdkVersion": "10.0.18362.0",
             "compilerPath": "C:\\msys64\\mingw64\\bin\\clang++.exe",
