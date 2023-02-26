@@ -39,10 +39,10 @@ $(LIBDIR_DYNAMIC)/$(LIB_DYNAMIC): $(OBJ)
 
 # DLL needs to be at the same directory as the executable or in the PATH
 dynamic_bed:
-	$(CXX) $(CPP_STANDARD) -o ./bin/dynamic/dynamic_bed.exe $(TESTBEDSOURCES) $(MAGMA_INCLUDE) -L./bin/dynamic -lmagma -L$(VULKAN_SDK)/Lib -lvulkan-1
+	$(CXX) $(CPP_STANDARD) -o ./bin/dynamic/dynamic_bed.exe $(TESTBEDSOURCES) $(MAGMA_INCLUDE) -L./bin/dynamic -lmagma -L$(VULKAN_SDK)/Lib -lvulkan-1 -luser32
 
 static_bed:
-	$(CXX) $(CPP_STANDARD) -o static_bed.exe $(TESTBEDSOURCES) $(MAGMA_INCLUDE) -L./bin/static -lmagma -L$(VULKAN_SDK)/Lib -lvulkan-1
+	$(CXX) $(CPP_STANDARD) -o static_bed.exe $(TESTBEDSOURCES) $(MAGMA_INCLUDE) -L./bin/static -lmagma -L$(VULKAN_SDK)/Lib -lvulkan-1 -luser32
 
 # Define the clean rule
 clean:

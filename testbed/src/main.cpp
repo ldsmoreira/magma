@@ -1,6 +1,6 @@
-#include "engine.hpp"
 #include <iostream>
 #include "logging/logging.hpp"
+#include "platform/win32/platform_win32.hpp"
 
 using namespace magma;
 
@@ -13,7 +13,7 @@ int main() {
   LOG_CRITICAL("Critical message %d", 4);
   LOG_DEBUG("Debug message %d", 5);
 
-  MagmaLib::Debug::print_vulkan_config();
-
+  platform::PlatformWin32 platform(0, 0, 800, 600, "Magma");
+  
   return 0;
 }
