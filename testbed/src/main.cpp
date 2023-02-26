@@ -7,11 +7,11 @@ using namespace magma;
 int main() {
   logging::Logger::init_logger(spdlog::level::level_enum::debug);
 
-  logging::Logger::info("Info message");
-  logging::Logger::warn("Warn message");
-  logging::Logger::error("Error message");
-  logging::Logger::critical("Critical message");
-  logging::Logger::debug("Debug message");
+  LOG_INFO("Info %s message %d", "test", 1);
+  LOG_WARN("Warn message %d", 2);
+  LOG_ERROR("Error message %d", 3);
+  LOG_CRITICAL("Critical message %d", 4);
+  LOG_DEBUG("Debug message %d", 5);
 
   MagmaLib::Debug::print_vulkan_config();
 
