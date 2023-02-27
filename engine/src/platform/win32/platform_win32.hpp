@@ -5,6 +5,8 @@
 #include <Windows.h>
 #include <Windowsx.h>
 
+LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+
 typedef struct internal_state {
     // Instance of the application
     HINSTANCE h_instance;

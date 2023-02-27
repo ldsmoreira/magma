@@ -31,7 +31,7 @@ $(LIBDIR_STATIC)/$(LIB_STATIC): $(OBJ)
 
 # Define the build rule for the dynamic library
 $(LIBDIR_DYNAMIC)/$(LIB_DYNAMIC): $(OBJ)
-	$(CXX) $(CPP_STANDARD) -shared $^ -o $@ $(VULKAN_LINKING_FLAGS)
+	$(CXX) $(CPP_STANDARD) -shared $^ -o $@ $(VULKAN_LINKING_FLAGS) -luser32 -lgdi32
 
 # Define the build rule for the object files
 %.o: %.cpp
@@ -39,10 +39,10 @@ $(LIBDIR_DYNAMIC)/$(LIB_DYNAMIC): $(OBJ)
 
 # DLL needs to be at the same directory as the executable or in the PATH
 dynamic_bed:
-	$(CXX) $(CPP_STANDARD) -o ./bin/dynamic/dynamic_bed.exe $(TESTBEDSOURCES) $(MAGMA_INCLUDE) -L./bin/dynamic -lmagma -L$(VULKAN_SDK)/Lib -lvulkan-1 -luser32
+	$(CXX) $(CPP_STANDARD) -o ./bin/dynamic/dynamic_bed.exe $(TESTBEDSOURCES) $(MAGMA_INCLUDE) -L./bin/dynamic -lmagma -L$(VULKAN_SDK)/Lib -lvulkan-1 -luser32 -lgdi32
 
 static_bed:
-	$(CXX) $(CPP_STANDARD) -o static_bed.exe $(TESTBEDSOURCES) $(MAGMA_INCLUDE) -L./bin/static -lmagma -L$(VULKAN_SDK)/Lib -lvulkan-1 -luser32
+	$(CXX) $(CPP_STANDARD) -o static_bed.exe $(TESTBEDSOURCES) $(MAGMA_INCLUDE) -L./bin/static -lmagma -L$(VULKAN_SDK)/Lib -lvulkan-1 -luser32 -lgdi32
 
 # Define the clean rule
 clean:
