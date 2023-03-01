@@ -5,13 +5,18 @@ CXXFLAGS = -fPIC -Wall -Werror -pedantic
 CPP_STANDARD = -std=c++20
 
 # Define the source files and object files
-SRC = $(shell dir /B/S engine\src\*.cpp)
+SRC = $(shell dir /B/S magma\src\*.cpp)
 OBJ = $(SRC:.cpp=.o)
 
 VULKAN_INCLUDE = -I$(VULKAN_SDK)/Include
 VULKAN_LINKING_FLAGS = -L$(VULKAN_SDK)/Lib -lvulkan-1
 
-MAGMA_INCLUDE = -I./engine/src/core -I./engine/src -I./external/spdlog/include
+# TODO: Build GLFW when the build directory doesn't exist
+GLFW_INCLUDE = -I./external/glfw/include
+GLFW_LINKING_FLAGS = -L./external/glfw/build/src/Release -lglfw3
+
+# Generate a string of -I flags for all subdirectories of the magma/src directory
+MAGMA_INCLUDE = $(shell for /r "magma\src" /d %%i in (*) do @echo -I"%%i") -I./external/spdlog/include
 
 # Define the name of the static library and the output directory
 LIB_STATIC = magma.lib
@@ -22,7 +27,7 @@ LIB_DYNAMIC = magma.dll
 LIBDIR_DYNAMIC = ./bin/dynamic
 
 # Testbed source files and object files
-TESTBEDSOURCES=$(wildcard testbed/src/*.cpp)
+TESTBEDSOURCES=$(wildcard application/samples/*.cpp)
 TESTBEDOBJECTS=$(TESTBEDSOURCES:.cpp=.o)
 
 # Define the build rule for the static library

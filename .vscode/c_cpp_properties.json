@@ -27,18 +27,18 @@
         {
             "name": "Win32",
             "includePath": [
-                "${workspaceFolder}/engine/src/**",
-                "${workspaceFolder}/vulkan_renderer/src/**",
+                "${workspaceFolder}/magma/src/**",
+                "${workspaceFolder}/external/glfw/include",
                 "${VULKAN_SDK}/include",
                 "C:/Program Files (x86)/Windows Kits/10/Include/**",
-                "external/**/include/**",
                 "${workspaceFolder}/external/spdlog/include"
             ],
             "windowsSdkVersion": "10.0.18362.0",
             "compilerPath": "C:\\msys64\\mingw64\\bin\\clang++.exe",
             "cStandard": "c17",
             "cppStandard": "c++17",
-            "intelliSenseMode": "clang-x64"
+            "intelliSenseMode": "clang-x64",
+            "configurationProvider": "ms-vscode.makefile-tools"
         }
     ],
     "version": 4

@@ -178,4 +178,5 @@
         "empty",
         "custom"
     ],
+    "C_Cpp.intelliSenseEngineFallback": "disabled",
 }

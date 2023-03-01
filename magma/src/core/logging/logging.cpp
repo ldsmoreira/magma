@@ -1,6 +1,6 @@
 #include "logging.hpp"
 
-namespace magma::logging {
+namespace magma {
 
     void Logger::init_logger(spdlog::level::level_enum level) {
                 // TODO: Add file logging
