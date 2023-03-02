@@ -1,8 +1,8 @@
 #pragma once
 #include <string>
 
-#include "spdlog/spdlog.h"
-#include "spdlog/sinks/stdout_color_sinks.h"
+#include <spdlog/spdlog.h>
+#include <spdlog/sinks/stdout_color_sinks.h>
 
 #define LOG_INFO(message, ...) magma::Logger::info(message __VA_OPT__(, __VA_ARGS__))
 #define LOG_WARN(message, ...) magma::Logger::warn(message __VA_OPT__(, __VA_ARGS__))

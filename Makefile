@@ -11,9 +11,11 @@ OBJ = $(SRC:.cpp=.o)
 VULKAN_INCLUDE = -I$(VULKAN_SDK)/Include
 VULKAN_LINKING_FLAGS = -L$(VULKAN_SDK)/Lib -lvulkan-1
 
+# NOTE: Remember use cmake to mingw and then make and make install and copy the libglfw3.a to the root directory
 # TODO: Build GLFW when the build directory doesn't exist
 GLFW_INCLUDE = -I./external/glfw/include
-GLFW_LINKING_FLAGS = -L./external/glfw/build/src/Release -lglfw3
+# GLFW_LINKING_FLAGS = -L./external/glfw/build/src/Release -llibglfw3
+GLFW_LINKING_FLAGS = -L. -lglfw3
 
 # Generate a string of -I flags for all subdirectories of the magma/src directory
 MAGMA_INCLUDE = $(shell for /r "magma\src" /d %%i in (*) do @echo -I"%%i") -I./external/spdlog/include
@@ -27,7 +29,7 @@ LIB_DYNAMIC = magma.dll
 LIBDIR_DYNAMIC = ./bin/dynamic
 
 # Testbed source files and object files
-TESTBEDSOURCES=$(wildcard application/samples/*.cpp)
+TESTBEDSOURCES := $(shell dir /s /b application\samples\*.cpp)
 TESTBEDOBJECTS=$(TESTBEDSOURCES:.cpp=.o)
 
 # Define the build rule for the static library
@@ -36,18 +38,18 @@ $(LIBDIR_STATIC)/$(LIB_STATIC): $(OBJ)
 
 # Define the build rule for the dynamic library
 $(LIBDIR_DYNAMIC)/$(LIB_DYNAMIC): $(OBJ)
-	$(CXX) $(CPP_STANDARD) -shared $^ -o $@ $(VULKAN_LINKING_FLAGS) -luser32 -lgdi32
+	$(CXX) $(CPP_STANDARD) -shared $^ -o $@ $(VULKAN_LINKING_FLAGS) $(GLFW_LINKING_FLAGS) -luser32 -lgdi32
 
 # Define the build rule for the object files
 %.o: %.cpp
-	$(CXX) $(CPP_STANDARD) $(CXXFLAGS) $(VULKAN_INCLUDE) $(MAGMA_INCLUDE) -c $< -o $@
+	$(CXX) $(CPP_STANDARD) $(CXXFLAGS) $(VULKAN_INCLUDE) $(MAGMA_INCLUDE) $(GLFW_INCLUDE) -c $< -o $@
 
 # DLL needs to be at the same directory as the executable or in the PATH
 dynamic_bed:
-	$(CXX) $(CPP_STANDARD) -o ./bin/dynamic/dynamic_bed.exe $(TESTBEDSOURCES) $(MAGMA_INCLUDE) -L./bin/dynamic -lmagma -L$(VULKAN_SDK)/Lib -lvulkan-1 -luser32 -lgdi32
+	$(CXX) $(CPP_STANDARD) -o ./bin/dynamic/dynamic_bed.exe  $(TESTBEDSOURCES) $(MAGMA_INCLUDE) $(GLFW_INCLUDE) -L./bin/dynamic -lmagma $(VULKAN_LINKING_FLAGS) $(GLFW_LINKING_FLAGS) -luser32 -lgdi32
 
 static_bed:
-	$(CXX) $(CPP_STANDARD) -o static_bed.exe $(TESTBEDSOURCES) $(MAGMA_INCLUDE) -L./bin/static -lmagma -L$(VULKAN_SDK)/Lib -lvulkan-1 -luser32 -lgdi32
+	$(CXX) $(CPP_STANDARD) -o static_bed.exe  $(TESTBEDSOURCES) $(MAGMA_INCLUDE) $(GLFW_INCLUDE) -L./bin/static -lmagma $(VULKAN_LINKING_FLAGS) $(GLFW_LINKING_FLAGS) -luser32 -lgdi32
 
 # Define the clean rule
 clean:

@@ -6,14 +6,14 @@
 namespace magma {
 
     struct WindowProperties {
-        std::string title;
+        std::string window_name;
         uint32_t width;
         uint32_t height;
 
-        WindowProperties(const std::string& title = "Magma",
+        WindowProperties(const std::string& window_name = "Magma",
                          uint32_t width = 1280,
                          uint32_t height = 720)
-            : title(title), width(width), height(height) {}
+            : window_name(window_name), width(width), height(height) {}
     };
 
     class Window {
