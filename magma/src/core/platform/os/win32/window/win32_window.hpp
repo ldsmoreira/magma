@@ -17,6 +17,7 @@ namespace magma {
             uint32_t getHeight() const override { return properties.height; }
 
             bool shouldClose() const;
+            void run();
 
         private:
 

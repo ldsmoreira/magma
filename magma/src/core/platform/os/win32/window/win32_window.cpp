@@ -29,7 +29,14 @@ namespace magma {
         }
 
         bool Win32Window::shouldClose() const {
+            glfwSwapBuffers(window);
             return glfwWindowShouldClose(window);
+        }
+
+        void Win32Window::run() {
+            while (!shouldClose()) {
+                glfwPollEvents();
+            }
         }
     
 }

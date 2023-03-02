@@ -15,7 +15,7 @@ VULKAN_LINKING_FLAGS = -L$(VULKAN_SDK)/Lib -lvulkan-1
 # TODO: Build GLFW when the build directory doesn't exist
 GLFW_INCLUDE = -I./external/glfw/include
 # GLFW_LINKING_FLAGS = -L./external/glfw/build/src/Release -llibglfw3
-GLFW_LINKING_FLAGS = -L. -lglfw3
+GLFW_LINKING_FLAGS = -L./external/glfw/build/src -lglfw3
 
 # Generate a string of -I flags for all subdirectories of the magma/src directory
 MAGMA_INCLUDE = $(shell for /r "magma\src" /d %%i in (*) do @echo -I"%%i") -I./external/spdlog/include
@@ -46,7 +46,7 @@ $(LIBDIR_DYNAMIC)/$(LIB_DYNAMIC): $(OBJ)
 
 # DLL needs to be at the same directory as the executable or in the PATH
 dynamic_bed:
-	$(CXX) $(CPP_STANDARD) -o ./bin/dynamic/dynamic_bed.exe  $(TESTBEDSOURCES) $(MAGMA_INCLUDE) $(GLFW_INCLUDE) -L./bin/dynamic -lmagma $(VULKAN_LINKING_FLAGS) $(GLFW_LINKING_FLAGS) -luser32 -lgdi32
+	$(CXX) $(CPP_STANDARD) -o ./bin/dynamic/dynamic_bed.exe  $(TESTBEDSOURCES) $(MAGMA_INCLUDE) $(GLFW_INCLUDE) $(GLFW_LINKING_FLAGS) -L./bin/dynamic -lmagma $(VULKAN_LINKING_FLAGS) -luser32 -lgdi32
 
 static_bed:
 	$(CXX) $(CPP_STANDARD) -o static_bed.exe  $(TESTBEDSOURCES) $(MAGMA_INCLUDE) $(GLFW_INCLUDE) -L./bin/static -lmagma $(VULKAN_LINKING_FLAGS) $(GLFW_LINKING_FLAGS) -luser32 -lgdi32
@@ -55,7 +55,14 @@ static_bed:
 clean:
 	del /Q $(subst /,\,$(OBJ) $(LIBDIR_STATIC)\$(LIB_STATIC) $(LIBDIR_DYNAMIC)\$(LIB_DYNAMIC) bin/dynamic/dynamic_bed.exe static_bed.exe)
 
+build_dependencies:
+	if not exist "external\glfw\build" ( \
+		echo Building dependencies... && \
+		cd external\glfw && cmake -S . -B build -G "MinGW Makefiles" && cmake --build build --config Release && \
+		echo Done. \
+	)
+
 # Define the all rule
-all: $(LIBDIR_STATIC)/$(LIB_STATIC) $(LIBDIR_DYNAMIC)/$(LIB_DYNAMIC) static_bed dynamic_bed
+all: build_dependencies $(LIBDIR_STATIC)/$(LIB_STATIC) $(LIBDIR_DYNAMIC)/$(LIB_DYNAMIC) static_bed dynamic_bed
 
 .PHONY: all clean

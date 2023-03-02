@@ -12,9 +12,11 @@ int main() {
 
   Win32Window window(WindowProperties("Testbed", 800, 800));
 
-  while (!window.shouldClose()) {
-    glfwPollEvents();
-  }
+  // NOTE: behavior when we build magma as a dll and we try to handle the event loop in the main thread
+  // For some reason that we need to discover later is that the
+  // event loop for the window needs to be in the dll and not in
+  // the main thread.
+  window.run();
   
   return 0;
 }
