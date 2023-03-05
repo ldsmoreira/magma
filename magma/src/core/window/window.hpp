@@ -2,7 +2,6 @@
 
 #include <string>
 
-
 namespace magma {
 
     struct WindowProperties {
@@ -18,9 +17,10 @@ namespace magma {
 
     class Window {
     public:
-        virtual ~Window() = default;
-
         virtual uint32_t getWidth() const = 0;
         virtual uint32_t getHeight() const = 0;
+
+        virtual bool shouldClose() const = 0;
+        virtual bool pollEvents() = 0;
     };
 }

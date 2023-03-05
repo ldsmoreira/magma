@@ -36,3 +36,6 @@
 *.exe
 *.out
 *.app
+
+# Compiled Shader files
+*.spv

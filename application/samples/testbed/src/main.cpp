@@ -1,6 +1,7 @@
 #include <iostream>
 #include "logging/logging.hpp"
 #include "platform/os/win32/window/win32_window.hpp"
+#include "application/application.hpp"
 
 using namespace magma;
 
@@ -16,7 +17,12 @@ int main() {
   // For some reason that we need to discover later is that the
   // event loop for the window needs to be in the dll and not in
   // the main thread.
-  window.run();
+  // window.run();
+
+  Application app(&window, Pipeline("magma/src/core/platform/graphics_api/vulkan/shader/shaders/simple_shader/simple_shader.vert.spv",
+                                    "magma/src/core/platform/graphics_api/vulkan/shader/shaders/simple_shader/simple_shader.frag.spv"));
+
+  app.run();
   
   return 0;
 }

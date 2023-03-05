@@ -13,11 +13,12 @@ namespace magma {
             
             // Implement Window interface
             ~Win32Window();
-            uint32_t getWidth() const override { return properties.width; }
-            uint32_t getHeight() const override { return properties.height; }
+            
+            uint32_t getWidth() const override;
+            uint32_t getHeight() const override;
 
-            bool shouldClose() const;
-            void run();
+            bool shouldClose() const override;
+            bool pollEvents() override;
 
         private:
 

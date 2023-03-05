@@ -2,8 +2,7 @@
 
 namespace magma {
     
-        Win32Window::Win32Window(const WindowProperties& properties) {
-            this->properties = properties;
+        Win32Window::Win32Window(const WindowProperties& properties) : properties(properties) {
             initWindow();
         }
 
@@ -28,15 +27,28 @@ namespace magma {
             window = glfwCreateWindow(properties.width, properties.height, properties.window_name.c_str(), nullptr, nullptr);
         }
 
+        uint32_t Win32Window::getWidth() const {
+            return properties.width;
+        }
+
+        uint32_t Win32Window::getHeight() const {
+            return properties.height;
+        }
+
         bool Win32Window::shouldClose() const {
             glfwSwapBuffers(window);
             return glfwWindowShouldClose(window);
         }
 
-        void Win32Window::run() {
-            while (!shouldClose()) {
-                glfwPollEvents();
-            }
+        bool Win32Window::pollEvents() {
+            glfwPollEvents();
+            return true;
         }
+
+        // void Win32Window::run() {
+        //     while (!shouldClose()) {
+        //         pollEvents();
+        //     }
+        // }
     
 }

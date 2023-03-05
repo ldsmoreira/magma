@@ -62,7 +62,11 @@ build_dependencies:
 		echo Done. \
 	)
 
+build_vulkan_simple_shader:
+	glslc magma\src\core\platform\graphics_api\vulkan\shader\shaders\simple_shader\simple_shader.frag -o magma\src\core\platform\graphics_api\vulkan\shader\shaders\simple_shader\simple_shader.frag.spv
+	glslc magma\src\core\platform\graphics_api\vulkan\shader\shaders\simple_shader\simple_shader.vert -o magma\src\core\platform\graphics_api\vulkan\shader\shaders\simple_shader\simple_shader.vert.spv
+
 # Define the all rule
-all: build_dependencies $(LIBDIR_STATIC)/$(LIB_STATIC) $(LIBDIR_DYNAMIC)/$(LIB_DYNAMIC) static_bed dynamic_bed
+all: build_dependencies build_vulkan_simple_shader $(LIBDIR_STATIC)/$(LIB_STATIC) $(LIBDIR_DYNAMIC)/$(LIB_DYNAMIC) static_bed dynamic_bed
 
 .PHONY: all clean
