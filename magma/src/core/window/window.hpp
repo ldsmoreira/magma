@@ -17,6 +17,8 @@ namespace magma {
 
     class Window {
     public:
+        // NOTE: = 0 means pure virtual function 
+
         virtual uint32_t getWidth() const = 0;
         virtual uint32_t getHeight() const = 0;
 
